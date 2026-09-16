@@ -66,9 +66,9 @@ cmake -DBUILD_MEX_BINDINGS=ON ..
 make
 ```
 
-This produces a `pompeiu_hausdorff` mex file in `build/`. Add both `build/`
-and `matlab/` to your Matlab path (the latter provides `pompeiu_hausdorff.m`,
-used only for `help pompeiu_hausdorff`), then use, for example, like this:
+This produces a `pompeiu_hausdorff` mex file in `matlab/`, alongside
+`matlab/pompeiu_hausdorff.m` (used only for `help pompeiu_hausdorff`). Add
+`matlab/` to your Matlab path, then use, for example, like this:
 
 ```matlab
 [VA,FA] = readOBJ('meshes/107100.obj');
