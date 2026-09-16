@@ -55,3 +55,27 @@ print("upper bound/dA: ", upper_max/dA)
 print("time taken bvh(ms): ", time_taken_bvh)
 print("time taken bounds(ms): ", time_taken_bounds)
 ```
+
+## Matlab
+
+Build the mex binding with
+
+```bash
+mkdir build && cd build
+cmake -DBUILD_MEX_BINDINGS=ON ..
+make
+```
+
+This produces a `pompeiu_hausdorff` mex file in `build/`. Add both `build/`
+and `matlab/` to your Matlab path (the latter provides `pompeiu_hausdorff.m`,
+used only for `help pompeiu_hausdorff`), then use, for example, like this:
+
+```matlab
+[VA,FA] = readOBJ('meshes/107100.obj');
+[VB,FB] = readOBJ('meshes/107100_sf.obj');
+tol = 1e-8;
+max_factor = 1000000;
+normalize = true;
+[lower,upper_max,dA,time_taken_bvh,time_taken_bounds] = ...
+  pompeiu_hausdorff(VA,FA,VB,FB,tol,max_factor,normalize);
+```

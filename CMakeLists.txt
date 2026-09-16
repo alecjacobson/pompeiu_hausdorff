@@ -7,6 +7,11 @@ SET(CMAKE_BUILD_TYPE Release)
 # option to build executable (default true)
 option(BUILD_EXECUTABLE "Build executable" ON)
 option(BUILD_PYTHON_BINDINGS "Build python bindings" OFF)
+option(BUILD_MEX_BINDINGS "Build Matlab mex bindings" OFF)
+
+if(BUILD_MEX_BINDINGS)
+  set(LIBIGL_RESTRICTED_MATLAB ON CACHE BOOL "" FORCE)
+endif()
 
 # Libigl
 include(libigl)
@@ -76,4 +81,12 @@ if(BUILD_PYTHON_BINDINGS)
   # Install directive for scikit-build-core
   install(TARGETS cascading_upper_bounds_ext LIBRARY DESTINATION cascading_upper_bounds)
 
+endif()
+
+if(BUILD_MEX_BINDINGS)
+  matlab_add_mex(
+    NAME pompeiu_hausdorff_mex
+    OUTPUT_NAME pompeiu_hausdorff
+    SRC src/mex_pompeiu_hausdorff.cpp
+    LINK_TO ${LIBRARY_NAME} igl::core igl_restricted::matlab)
 endif()
